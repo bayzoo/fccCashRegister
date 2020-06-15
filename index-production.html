@@ -10,12 +10,11 @@
 <script>
 "use strict";
 function checkCashRegister(price, cash, cid) {
-  let tillTotal = parseFloat(till.reduce((preVal, curVal) => preVal + curVal[1], 0).toFixed(2));
-  let change = cash - price;
-
-  if (tillTotal === change) {
-    return {status: "CLOSED", change: cid};
-  }
+  let till = [...cid].reverse().map(item => [item[0], Math.round(item[1] * 100)]); 
+  //reverse cid array to work down from highest USD value, and multiply each holding by 100 to remove decimal
+  let change = Math.round((cash * 100) - (price * 100));
+  //get change value multiplied by 100
+  
 }
 
 console.log(checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
