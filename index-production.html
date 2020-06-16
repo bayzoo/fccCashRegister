@@ -18,7 +18,22 @@ function checkCashRegister(price, cash, cid) {
   //set array containing values of each dollar denomination in pennies
   let changeArr = [["ONE HUNDRED", 0], ["TWENTY", 0], ["TEN", 0], ["FIVE", 0], ["ONE", 0], ["QUARTER", 0], ["DIME", 0], ["NICKEL", 0], ["PENNY", 0]];
   //set array which will be returned in the final object with the change values
-  
+
+  let changeLeft = USDVal.reduce((preVal, curVal, index) => {
+    if (preVal === 0 || curVal > preVal || till[index][1] === 0) {
+      return preVal;
+    } else {
+      while (preVal >= curVal && till[index][1] > 0) {
+        preVal -= curVal;
+        till[index][1] -= curVal;
+        changeArr[index][1] += curVal;
+      }
+      return preVal;
+    }
+  }, change);
+  /*calculate the change left by reducing through the usdvals array; usdval is used to
+  reduce the change value, depending on the till value, and populate the change array
+  */
 }
 
 console.log(checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
