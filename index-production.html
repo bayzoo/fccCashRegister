@@ -14,6 +14,10 @@ function checkCashRegister(price, cash, cid) {
   //reverse cid array to work down from highest USD value, and multiply each holding by 100 to remove decimal
   let change = Math.round((cash * 100) - (price * 100));
   //get change value multiplied by 100
+  let USDVal = [10000, 2000, 1000, 500, 100, 25, 10, 5, 1];
+  //set array containing values of each dollar denomination in pennies
+  let changeArr = [["ONE HUNDRED", 0], ["TWENTY", 0], ["TEN", 0], ["FIVE", 0], ["ONE", 0], ["QUARTER", 0], ["DIME", 0], ["NICKEL", 0], ["PENNY", 0]];
+  //set array which will be returned in the final object with the change values
   
 }
 
