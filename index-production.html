@@ -34,6 +34,19 @@ function checkCashRegister(price, cash, cid) {
   /*calculate the change left by reducing through the usdvals array; usdval is used to
   reduce the change value, depending on the till value, and populate the change array
   */
+
+  changeArr = changeArr.filter(item => item[1] > 0).map(item => [item[0], item[1] / 100]);
+  //convert change array to amounts in dollars and remove empty key/value pairs
+  let tillTotal = till.reduce((preVal, curVal) => preVal + curVal[1], 0);
+  //calculate the total value left in the till
+
+  if (tillTotal === 0 && changeLeft === 0) {
+    return {status: "CLOSED", change: cid};
+  } else if (changeLeft > 0) {
+    return {status: "INSUFFICIENT_FUNDS", change: []};
+  }
+  return {status: "OPEN", change: changeArr};
+  
 }
 
 console.log(checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
